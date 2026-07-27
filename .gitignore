@@ -1,0 +1,49 @@
+# =========================
+# Python (Backend)
+# =========================
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Environment variables
+.env
+.env.*
+
+# =========================
+# Node.js / Next.js (Frontend)
+# =========================
+node_modules/
+.next/
+out/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Python cache
+# =========================
+.pytest_cache/
+.mypy_cache/
+
+# =========================
+# Build artifacts
+# =========================
+coverage/

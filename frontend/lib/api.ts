@@ -145,8 +145,7 @@ export const scansApi = {
     form.append("file", file);
     return request<Scan>(`/patients/${patientId}/scans`, { method: "POST", isFile: true, body: form });
   },
-  // <img> tags can't send Authorization headers, so we fetch the image as a
-  // blob with the proper auth header and hand back an object URL to render.
+  
   fetchImageBlobUrl: async (scanId: number): Promise<string> => {
     const token = getAccessToken();
     const res = await fetch(`${API_BASE}/scans/${scanId}/image`, {

@@ -54,9 +54,7 @@ async def upload_scan(
     db.commit()
     db.refresh(db_scan)
 
-    # Run the model immediately — this IS the triage system. A single image
-    # classification is fast enough (sub-second on CPU) that there's no need
-    # to defer this to a background job the way we did for CSV exports elsewhere.
+   
     try:
         result = predict_scan(file_path)
         db_prediction = models.Prediction(
@@ -70,8 +68,7 @@ async def upload_scan(
         db.commit()
         db.refresh(db_scan)
     except Exception as e:
-        # The scan itself is still saved even if prediction fails — a human
-        # can still review it manually, we just don't want to lose the upload.
+     
         raise HTTPException(status_code=500, detail=f"Scan saved, but prediction failed: {str(e)}")
 
     return db_scan

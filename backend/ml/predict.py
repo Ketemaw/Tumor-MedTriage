@@ -1,8 +1,9 @@
 import os
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
-import numpy as np
 import tensorflow as tf
+import numpy as np
 from PIL import Image
 from tensorflow.keras.models import load_model
 from config import settings
@@ -27,7 +28,7 @@ class WeightedAverageLayer(tf.keras.layers.Layer):
         return config
 
 
-# Loaded once at import time, not per-request — loading a Keras model is expensive
+#loading the model
 _model = load_model(
     settings.model_path,
     custom_objects={"WeightedAverageLayer": WeightedAverageLayer},

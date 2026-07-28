@@ -1,4 +1,5 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 import tensorflow as tf
@@ -29,11 +30,26 @@ class WeightedAverageLayer(tf.keras.layers.Layer):
 
 ensure_model_downloaded()
 #loading the model
-_model = _model = None
-# load_model(
-#     settings.model_path,
-#     custom_objects={"WeightedAverageLayer": WeightedAverageLayer},
-# )
+
+_model = None
+
+
+def get_model():
+    global _model
+
+    if _model is None:
+        print("Loading model...")
+
+        _model = load_model(
+            settings.model_path,
+            custom_objects={
+                "WeightedAverageLayer": WeightedAverageLayer
+            },
+        )
+
+        print("Model loaded successfully")
+
+    return _model
 
 
 def preprocess_image(image_path: str) -> np.ndarray:
@@ -53,8 +69,11 @@ def determine_priority(predicted_class: str, confidence: float) -> str:
 
 
 def predict_scan(image_path: str) -> dict:
+    model = get_model()
+
     img_array = preprocess_image(image_path)
-    raw_predictions = _model.predict(img_array)[0]
+
+    raw_predictions = model.predict(img_array)[0]
 
     predicted_index = int(np.argmax(raw_predictions))
     predicted_class = CLASSES[predicted_index]

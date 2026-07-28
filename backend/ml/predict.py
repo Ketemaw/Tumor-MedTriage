@@ -29,10 +29,11 @@ class WeightedAverageLayer(tf.keras.layers.Layer):
 
 ensure_model_downloaded()
 #loading the model
-_model = load_model(
-    settings.model_path,
-    custom_objects={"WeightedAverageLayer": WeightedAverageLayer},
-)
+_model = _model = None
+# load_model(
+#     settings.model_path,
+#     custom_objects={"WeightedAverageLayer": WeightedAverageLayer},
+# )
 
 
 def preprocess_image(image_path: str) -> np.ndarray:

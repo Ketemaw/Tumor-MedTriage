@@ -6,6 +6,7 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 from tensorflow.keras.models import load_model
+from download_model import ensure_model_downloaded
 from config import settings
 
 CLASSES = ['glioma', 'meningioma', 'notumor', 'pituitary']
@@ -27,7 +28,7 @@ class WeightedAverageLayer(tf.keras.layers.Layer):
         config.update({"w1": self.w1, "w2": self.w2, "w3": self.w3})
         return config
 
-
+ensure_model_downloaded()
 #loading the model
 _model = load_model(
     settings.model_path,

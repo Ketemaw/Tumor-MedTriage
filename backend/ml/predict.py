@@ -5,7 +5,6 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import numpy as np
 from PIL import Image
-from tensorflow.keras.models import load_model
 from download_model import ensure_model_downloaded
 from config import settings
 
@@ -30,7 +29,7 @@ class WeightedAverageLayer(tf.keras.layers.Layer):
 
 ensure_model_downloaded()
 #loading the model
-_model = load_model(
+_model = tf.keras.models.load_model(
     settings.model_path,
     custom_objects={"WeightedAverageLayer": WeightedAverageLayer},
 )

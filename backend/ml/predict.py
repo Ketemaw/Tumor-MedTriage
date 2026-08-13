@@ -6,7 +6,7 @@ import numpy as np
 import tensorflow as tf
 from PIL import Image
 from tensorflow.keras.models import load_model
-from download_model import ensure_model_downloaded
+from download_model import ensure_model_downloaded, ensure_gate_model_downloaded
 from config import settings
 
 CLASSES = ['glioma', 'meningioma', 'notumor', 'pituitary']
@@ -36,7 +36,7 @@ class WeightedAverageLayer(tf.keras.layers.Layer):
 
 
 ensure_model_downloaded()
-
+ensure_gate_model_downloaded()
 _model = None
 _gate_model = None
 

@@ -54,9 +54,17 @@ async def upload_scan(
     db.commit()
     db.refresh(db_scan)
 
-   
     try:
         result = predict_scan(file_path)
+
+        # --- Gate rejection: not a valid brain MRI ---
+        if result.get("error") == "invalid_image_type":
+            db.delete(db_scan)
+            db.commit()
+            if os.path.exists(file_path):
+                os.remove(file_path)
+            raise HTTPException(status_code=422, detail=result["message"])
+
         db_prediction = models.Prediction(
             scan_id=db_scan.id,
             predicted_class=result["predicted_class"],
@@ -67,8 +75,10 @@ async def upload_scan(
         db.add(db_prediction)
         db.commit()
         db.refresh(db_scan)
+
+    except HTTPException:
+        raise
     except Exception as e:
-     
         raise HTTPException(status_code=500, detail=f"Scan saved, but prediction failed: {str(e)}")
 
     return db_scan

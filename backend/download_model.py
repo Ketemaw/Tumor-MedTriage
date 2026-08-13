@@ -1,6 +1,8 @@
 import os
 import urllib.request
 
+print("=== DOWNLOAD_MODEL.PY VERSION CHECK: GATE MODEL CODE IS PRESENT ===")
+
 MODEL_URL = "https://github.com/Ketemaw/Tumor-MedTriage/releases/download/v1.0-model/ensemble_model.h5"
 MODEL_PATH = "ml_models/ensemble_model.h5"
 

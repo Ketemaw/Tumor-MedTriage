@@ -18,12 +18,13 @@ def _ensure_file_downloaded(url: str, path: str, label: str):
     print(f"{label} downloaded successfully.")
 
 
+def ensure_gate_model_downloaded():
+    _ensure_file_downloaded(GATE_MODEL_URL, GATE_MODEL_PATH, "MRI gate model")
+    
 def ensure_model_downloaded():
     _ensure_file_downloaded(MODEL_URL, MODEL_PATH, "Tumor model")
 
 
-def ensure_gate_model_downloaded():
-    _ensure_file_downloaded(GATE_MODEL_URL, GATE_MODEL_PATH, "MRI gate model")
 
 
 if __name__ == "__main__":
